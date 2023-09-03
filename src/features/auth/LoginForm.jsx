@@ -31,16 +31,13 @@ export function LoginForm({ loading, setLoading }) {
       size='large'
       disabled={loading}
     >
-
       <EmailField token={token} />
-
       <PasswordField token={token} />
 
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
-
         <Link to="">Forgot password?</Link>
       </Form.Item>
 
@@ -90,6 +87,7 @@ function PasswordField({ token }) {
     </Form.Item>
   );
 }
+
 function SubmitButton({ loading }) {
   return (
     <Form.Item>
