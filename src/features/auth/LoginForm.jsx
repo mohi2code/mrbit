@@ -2,26 +2,27 @@
 import {
   Form, Button,
   Input,
-  Checkbox
+  Checkbox,
+  Alert
 } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import useThemeStyle from '../../hooks/useThemeStyle';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../app/services/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useMutation } from 'react-query';
 
-export function LoginForm({ loading, setLoading }) {
+function login({ email, password }) {
+  return signInWithEmailAndPassword(auth, email, password);
+}
+
+export function LoginForm() {
+  const mutation = useMutation(login);
+
   const { token } = useThemeStyle();
 
   async function onFinish({ email, password }) {
-    try {
-      setLoading(true);
-      const res = await signInWithEmailAndPassword(getAuth(), email, password);
-      console.log(res);
-      setLoading(false);
-    } catch (error) {
-      console.log(error.message);
-      setLoading(false);
-    }
+    mutation.mutate({ email, password });
   }
 
   return (
@@ -29,8 +30,13 @@ export function LoginForm({ loading, setLoading }) {
       name='login-form'
       onFinish={onFinish}
       size='large'
-      disabled={loading}
+      disabled={mutation.isLoading}
     >
+
+      {
+        mutation.isError && <Form.Item> <Alert message="Invalid email or password!" type="error" showIcon closable /></Form.Item>
+      }
+
       <EmailField token={token} />
       <PasswordField token={token} />
 
@@ -41,7 +47,7 @@ export function LoginForm({ loading, setLoading }) {
         <Link to="">Forgot password?</Link>
       </Form.Item>
 
-      <SubmitButton loading={loading} />
+      <SubmitButton loading={mutation.isLoading} />
 
       <Form.Item>
         Or <Link to='/register'>Register now!</Link>
@@ -63,7 +69,9 @@ function EmailField({ token }) {
     >
       <Input
         type='email'
-        prefix={<MailOutlined style={{ color: `${token.colorTextDisabled}` }} />}
+        prefix={
+          <MailOutlined style={{ color: `${token.colorTextDisabled}` }} />
+        }
         placeholder="email" />
     </Form.Item>
   );
@@ -81,9 +89,12 @@ function PasswordField({ token }) {
       ]}
     >
       <Input
-        prefix={<LockOutlined style={{ color: `${token.colorTextDisabled}` }} />}
+        prefix={
+          <LockOutlined style={{ color: `${token.colorTextDisabled}` }} />
+        }
         type="password"
-        placeholder="Password" />
+        placeholder="Password"
+      />
     </Form.Item>
   );
 }
