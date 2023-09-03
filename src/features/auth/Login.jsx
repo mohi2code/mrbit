@@ -9,8 +9,24 @@ import {
   Checkbox
 } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyASapdRtPd5Zo5fxAYmK0Z587Zz0wafkgQ",
+  authDomain: "mrbit-9e8c9.firebaseapp.com",
+  projectId: "mrbit-9e8c9",
+  storageBucket: "mrbit-9e8c9.appspot.com",
+  messagingSenderId: "931323046056",
+  appId: "1:931323046056:web:2a1fd9acfb9bddc3a07a9d",
+  measurementId: "G-FMV2L7LX5P"
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
 
 const columnStyle = {
   display: 'flex',
@@ -20,6 +36,8 @@ const columnStyle = {
 };
 
 function Login() {
+
+  const [loading, setLoading] = useState(false);
 
   const { token } = theme.useToken();
 
@@ -35,7 +53,17 @@ function Login() {
     token.padding
   ]);
 
-  const onFinish = values => console.log(values);
+  async function onFinish({ email, password }) {
+    try {
+      setLoading(true);
+      const res = await signInWithEmailAndPassword(getAuth(), email, password);
+      console.log(res);
+      setLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
+  }
 
   return (
     <Row style={{ height: '100vh', ...themeStyle }}>
@@ -48,6 +76,7 @@ function Login() {
           name='login-form'
           onFinish={onFinish}
           size='large'
+          disabled={loading}
         >
           <Form.Item
             name="email"
@@ -84,7 +113,7 @@ function Login() {
           </Form.Item>
 
           <Form.Item>
-            <Button block type="primary" htmlType="submit">
+            <Button block loading={loading} type="primary" htmlType="submit">
               Log in
             </Button>
           </Form.Item>
