@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Col,
   Form,
@@ -53,6 +54,26 @@ function Login() {
     token.padding
   ]);
 
+  return (
+    <Row style={{ height: '100vh', ...themeStyle }}>
+      <Col span={8} offset={8} style={columnStyle}>
+        <Header />
+
+        <LoginForm token={token} loading={loading} setLoading={setLoading} />
+      </Col>
+    </Row>
+  );
+}
+
+function Header() {
+  return (
+    <Typography.Title level={1} style={{ margin: '0 auto 3rem auto' }}>
+      Login to your account
+    </Typography.Title>
+  );
+}
+
+function LoginForm({ token, loading, setLoading }) {
   async function onFinish({ email, password }) {
     try {
       setLoading(true);
@@ -66,64 +87,90 @@ function Login() {
   }
 
   return (
-    <Row style={{ height: '100vh', ...themeStyle }}>
-      <Col span={8} offset={8} style={columnStyle}>
-        <Typography.Title level={1} style={{ margin: '0 auto 3rem auto' }}>
-          Login to your account
-        </Typography.Title>
+    <Form
+      name='login-form'
+      onFinish={onFinish}
+      size='large'
+      disabled={loading}
+    >
 
-        <Form
-          name='login-form'
-          onFinish={onFinish}
-          size='large'
-          disabled={loading}
-        >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your email!',
-              },
-            ]}
-          >
-            <Input type='email' prefix={<MailOutlined style={{ color: `${token.colorTextDisabled}` }} />} placeholder="email" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined style={{ color: `${token.colorTextDisabled}` }} />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+      <EmailField token={token} />
 
-            <Link to="">Forgot password?</Link>
-          </Form.Item>
+      <PasswordField token={token} />
 
-          <Form.Item>
-            <Button block loading={loading} type="primary" htmlType="submit">
-              Log in
-            </Button>
-          </Form.Item>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-          <Form.Item>
-            Or <Link to='/register'>Register now!</Link>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+        <Link to="">Forgot password?</Link>
+      </Form.Item>
+
+      <SubmitButton loading={loading} />
+
+      <Form.Item>
+        Or <Link to='/register'>Register now!</Link>
+      </Form.Item>
+    </Form>
+  );
+}
+
+function EmailField({ token }) {
+  return (
+    <Form.Item
+      name="email"
+      rules={[
+        {
+          required: true,
+          message: 'Please input your email!',
+        },
+      ]}
+    >
+      <Input
+        type='email'
+        prefix={
+          <MailOutlined style={{ color: `${token.colorTextDisabled}` }} />
+        }
+        placeholder="email"
+      />
+    </Form.Item>
+  );
+}
+
+function PasswordField({ token }) {
+  return (
+    <Form.Item
+      name="password"
+      rules={[
+        {
+          required: true,
+          message: 'Please input your password!',
+        },
+      ]}
+    >
+      <Input
+        prefix={
+          <LockOutlined style={{ color: `${token.colorTextDisabled}` }} />
+        }
+        type="password"
+        placeholder="Password"
+      />
+    </Form.Item>
+  );
+}
+
+function SubmitButton({ loading }) {
+  return (
+    <Form.Item>
+      <Button
+        block
+        loading={loading}
+        type="primary"
+        htmlType="submit"
+      >
+        Log in
+      </Button>
+    </Form.Item>
   );
 }
 
