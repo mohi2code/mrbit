@@ -1,8 +1,11 @@
 import React from 'react';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+
+import { store } from './app/store';
+import { Provider } from 'react-redux';
+import './app/services/firebase';
+
 import { ConfigProvider, theme } from 'antd';
 import App from './App.jsx';
 import './index.css';
