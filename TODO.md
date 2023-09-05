@@ -1,9 +1,14 @@
-## Todos
+Proposed components:
+
+1. <IndexComponent />
+2. <RequireAuth />
+3. <AdminOnly />
+4. <Dashboard />
+5. <UsersList />
+6. <Login />
+7. <Register />
 
 
-### Authentication feature
-- Users can login, and register with creds pluse a role.
-
-[ ] I can start by designing the reducers.
-
-
+Logout behavior:
+  - Delete state.auth.user
+  - Delete localStorage.user
