@@ -1,4 +1,7 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
+import AuthIndex from './app/features/auth/components/AuthIndex';
+import Login from './app/features/auth/components/Login';
+import Logout from './app/features/auth/components/Logout';
 
 function App() {
   return (
@@ -7,19 +10,21 @@ function App() {
         <Route index element={<h2>Home</h2>} />
 
         {/* Public routes */}
-        <Route path='auth' element={<AuthIndexComponent />} >
+        <Route path='auth' element={<AuthIndex />} >
           <Route index element={<Login />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
         </Route>
 
+        <Route path='logout' element={<Logout />} />
+
         {/* Authentication required pathes */}
-        <Route element={<RequireAuth />} >
+        <Route element={<AuthGuard />} >
           <Route path='dashboard/*' element={<Dashboard />} >
             <Route index element={<h2>Dashboard home</h2>} />
 
             {/* Admin only routes */}
-            <Route element={<AdminOnly />}>
+            <Route element={<AdminGuard />}>
               <Route path='users-list' element={<UsersList />} />
             </Route>
 
@@ -35,20 +40,11 @@ function App() {
   );
 }
 
-function AuthIndexComponent() {
-  return (
-    <>
-      <h2>Auth Index Component</h2>
-      <Outlet />
-    </>
-  );
-}
-
-function RequireAuth() {
+function AuthGuard() {
   return <Outlet />;
 }
 
-function AdminOnly() {
+function AdminGuard() {
   return <Outlet />;
 }
 
@@ -63,10 +59,6 @@ function Dashboard() {
 
 function UsersList() {
   return <h3>UsersList</h3>;
-}
-
-function Login() {
-  return <h1>Login</h1>;
 }
 
 function Register() {

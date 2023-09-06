@@ -8,7 +8,15 @@ const initialState = {
 export const slice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {}
+  reducers: {
+    setCredentials(state, action) {
+      state.credentials = action.payload;
+    }
+  }
 });
+
+export const { setCredentials } = slice.actions;
+
+export const selectCreds = state => state.auth.credentials;
 
 export default slice.reducer;
