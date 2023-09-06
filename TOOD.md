@@ -1,8 +1,8 @@
 Proposed Components
 
 [x] <AuthIndex />
-[ ] <RequireAuth />
-[ ] <AdminOnly />
+[x] <AuthGuard />
+[ ] <AdminGuard />
 [ ] <Dashboard />
 [ ] <UsersList />
 [ ] <Login />

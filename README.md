@@ -2,8 +2,8 @@
 
 Proposed Components
 1. <AuthIndex />
-2. <RequireAuth />
-3. <AdminOnly />
+2. <AuthGuard />
+3. <AdminGuard />
 4. <Dashboard />
 5. <UsersList />
 6. <Login />
@@ -16,3 +16,8 @@ Proposed Components
   b. Redirect to Dashboard.
   c. Load data into state.auth.credentials.
   d. Redirect to Login screen.
+
+### <AuthGuard />
+- state.auth.credentials ? go to (a) : go to (b)
+  a. Render router outlet.
+  b. Redirect to '/auth/.

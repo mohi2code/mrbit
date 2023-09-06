@@ -13,7 +13,7 @@ function AuthIndex() {
     return <h1>An Unexpected Error Occured, Check the console.</h1>;
 
   if (credentials)
-    return <Navigate to='/dashboard' replace />;
+    return <Navigate to='/dashboard' replace={true} />;
   else {
     if (user)
       dispatch(setCredentials({

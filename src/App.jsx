@@ -1,5 +1,6 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AuthIndex from './app/features/auth/components/AuthIndex';
+import AuthGuard from './app/features/auth/components/AuthGurad';
 import Login from './app/features/auth/components/Login';
 import Logout from './app/features/auth/components/Logout';
 
@@ -38,10 +39,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
-
-function AuthGuard() {
-  return <Outlet />;
 }
 
 function AdminGuard() {
