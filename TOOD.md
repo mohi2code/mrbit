@@ -11,6 +11,10 @@ Proposed Components
 [x] <Login />
 [ ] <Register />
 
+Side Quests:
+- UsersList presentation.
+- Dashboard presentation.
+
 
 Components Detials
 <UsersList /> Component 

@@ -4,6 +4,7 @@ import AuthGuard from './app/features/auth/components/AuthGurad';
 import AdminGuard from './app/features/auth/components/AdminGuard';
 import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
+import Register from './app/features/auth/components/Register';
 import Logout from './app/features/auth/components/Logout';
 import UsersList from './UsersList';
 
@@ -54,10 +55,6 @@ function Dashboard() {
       <Outlet />
     </>
   );
-}
-
-function Register() {
-  return <h1>Register</h1>;
 }
 
 export default App;
