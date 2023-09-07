@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { firestore } from './app/services/firebaseConfig';
 import { query, collection, updateDoc, doc } from 'firebase/firestore';
-import { useEffect } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 function UsersList() {
@@ -9,11 +8,8 @@ function UsersList() {
     query(collection(firestore, 'accounts'))
   );
 
-  useEffect(() => {
-    if (snapshot && !error)
-      console.log(snapshot.docs[0].id);
-
-  }, [snapshot, error]);
+  if (error)
+    return <h1>An Unexpected error occured, check the console</h1>;
 
   return loading ?
     <h1>UsersList, processing...</h1> :
