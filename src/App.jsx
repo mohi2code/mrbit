@@ -5,6 +5,7 @@ import AdminGuard from './app/features/auth/components/AdminGuard';
 import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
 import Logout from './app/features/auth/components/Logout';
+import UsersList from './UsersList';
 
 function App() {
   return (
@@ -53,10 +54,6 @@ function Dashboard() {
       <Outlet />
     </>
   );
-}
-
-function UsersList() {
-  return <h3>UsersList</h3>;
 }
 
 function Register() {

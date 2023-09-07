@@ -5,16 +5,7 @@ Proposed Components
 [x] <HydrateAccount />
 [ ] <AdminGuard />
 [ ] <Dashboard />
-[ ] <UsersList />
+[x] <UsersList />
 [ ] <Login />
 [ ] <Register />
 
-In Progress
-[ ] <AdminGuard />
-[ ] <UsersList />
-
-
-:bulb: <AdminGuard /> Component
-- Checks if account.accountType == 'admin' ? go to (A) : go to (B)
-  a. render router outlet.
-  b. render Access Denied.
