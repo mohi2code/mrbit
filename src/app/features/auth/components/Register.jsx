@@ -1,16 +1,27 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
-import { Alert, Button, Form, Input, Typography } from 'antd';
+import { Alert, Button, Form, Input, Typography, Select } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
-import { auth } from '../../../services/firebaseConfig';
+import { auth, firestore } from '../../../services/firebaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import FullPage from './layout/FullPage';
 
 function Register() {
   const [createUser, , loading, error] = useCreateUserWithEmailAndPassword(auth);
 
-  function onFinish({ email, password }) {
-    createUser(email, password);
+  async function onFinish({
+    email,
+    password,
+    accountType,
+    isActivated = false
+  }) {
+    const user = await createUser(email, password);
+    user && await addDoc(collection(firestore, 'accounts'), {
+      email: user.user.email,
+      accountType,
+      isActivated
+    });
   }
 
   return (
@@ -30,6 +41,7 @@ function Register() {
           <EmailField />
           <PasswordField />
           <PasswordConfirmField />
+          <AccountTypeField />
           <SubmitButton loading={loading} />
         </Form>
       </section>
@@ -97,6 +109,21 @@ function PasswordConfirmField() {
       ]}
     >
       <Input.Password />
+    </Form.Item>
+  );
+}
+
+function AccountTypeField() {
+  return (
+    <Form.Item
+      name="accountType"
+      label="I'm"
+      rules={[{ required: true, message: 'Please select gender!' }]}
+    >
+      <Select placeholder="Please select your account type">
+        <Select.Option value="client">Looking for translators</Select.Option>
+        <Select.Option value="translator">Providing translation services</Select.Option>
+      </Select>
     </Form.Item>
   );
 }

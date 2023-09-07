@@ -19,6 +19,7 @@ function App() {
           <Route index element={<Login />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='accountDetails' element={<AccountDetails />} />
         </Route>
 
         <Route path='logout' element={<Logout />} />
@@ -55,6 +56,10 @@ function Dashboard() {
       <Outlet />
     </>
   );
+}
+
+function AccountDetails() {
+  return <h1>Account Detials...</h1>;
 }
 
 export default App;
