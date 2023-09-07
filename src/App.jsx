@@ -1,6 +1,7 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import AuthIndex from './app/features/auth/components/AuthIndex';
 import AuthGuard from './app/features/auth/components/AuthGurad';
+import AdminGuard from './app/features/auth/components/AdminGuard';
 import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
 import Logout from './app/features/auth/components/Logout';
@@ -44,14 +45,11 @@ function App() {
   );
 }
 
-function AdminGuard() {
-  return <Outlet />;
-}
-
 function Dashboard() {
   return (
     <>
       <h1>Dashboard</h1>
+      <Link to='users-list'>Users List</Link>
       <Outlet />
     </>
   );

@@ -21,7 +21,7 @@ function HydrateAccount() {
     if (!error && snapshot) {
       const document = snapshot?.docs[0];
       dispatch(setAccount({
-        accounType: document.get('accountType'),
+        accountType: document.get('accountType'),
         isActivated: document.get('isActivated'),
       }));
     }
