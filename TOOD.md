@@ -3,12 +3,12 @@ Proposed Components
 [x] <AuthIndex />
 [x] <AuthGuard />
 [x] <HydrateAccount />
-[ ] <AdminGuard />
+[x] <AdminGuard />
 [ ] <Dashboard />
 [x] <UsersList />
   [x] <UsersTable />
   [x] <ActivateButton />
-[ ] <Login />
+[x] <Login />
 [ ] <Register />
 
 
@@ -21,4 +21,12 @@ Components Detials
   - <ActivateButton />
     - presents a button.
     - handles document update logic.
+
+<Login />
+- Gets credentials from user.
+- Handles login logic.
+  - <Form />
+    - Handles state for fields.
+      - [<Fields>]
+      - <SubmitButton >
 

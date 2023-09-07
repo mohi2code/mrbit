@@ -13,12 +13,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <ConfigProvider
           theme={{
-            algorithm: theme.defaultAlgorithm,
+            algorithm: theme.darkAlgorithm,
           }}
         >
           <App />
         </ConfigProvider>
       </BrowserRouter>
-    </Provider>,
+    </Provider>
   </React.StrictMode>,
 );
