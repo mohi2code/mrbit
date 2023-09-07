@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AuthIndex from './app/features/auth/components/AuthIndex';
 import AuthGuard from './app/features/auth/components/AuthGurad';
+import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
 import Logout from './app/features/auth/components/Logout';
 
@@ -21,16 +22,18 @@ function App() {
 
         {/* Authentication required pathes */}
         <Route element={<AuthGuard />} >
-          <Route path='dashboard/*' element={<Dashboard />} >
-            <Route index element={<h2>Dashboard home</h2>} />
+          <Route element={<HydrateAccount />}>
+            <Route path='dashboard/*' element={<Dashboard />} >
+              <Route index element={<h2>Dashboard home</h2>} />
 
-            {/* Admin only routes */}
-            <Route element={<AdminGuard />}>
-              <Route path='users-list' element={<UsersList />} />
+              {/* Admin only routes */}
+              <Route element={<AdminGuard />}>
+                <Route path='users-list' element={<UsersList />} />
+              </Route>
+
+              {/* Not found dashboard */}
+              <Route path='*' element={<h1>Not found 😕</h1>} />
             </Route>
-
-            {/* Not found dashboard */}
-            <Route path='*' element={<h1>Not found 😕</h1>} />
           </Route>
         </Route>
 
