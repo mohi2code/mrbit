@@ -13,10 +13,10 @@ function Logout() {
   useEffect(() => {
     logout().then(success => {
       console.log(`Logging out is ${success}`);
-      dispatch(setCredentials({}));
+      dispatch(setCredentials(null));
       navigate('/');
     });
-  }, []);
+  }, [navigate, dispatch, logout]);
 
   return <h1>Loggin out</h1>;
 }

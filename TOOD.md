@@ -11,9 +11,8 @@ Proposed Components
 [x] <Login />
 [x] <Register />
 
-Side Quests:
-- Add toggle dark theme button in footer.
-
+Side Feature:
+- loading screens.
 
 Components Detials
 <UsersList /> Component 
