@@ -9,7 +9,10 @@ Proposed Components
   [x] <UsersTable />
   [x] <ActivateButton />
 [x] <Login />
-[ ] <Register />
+[x] <Register />
+
+In progress
+[ ] Dashboard.
 
 Side Quests:
 - UsersList presentation.
@@ -33,4 +36,13 @@ Components Detials
     - Handles state for fields.
       - [<Fields>]
       - <SubmitButton >
+
+<Register />
+- Create user with email and password (new).
+- new exists ? goto a : goto b
+  a. create new document('account').
+  b. show error.
+- <Form />
+  - Get creds, and account details from user.
+
 
