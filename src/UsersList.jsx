@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Button, Table, Tag, Typography } from 'antd';
 import { firestore } from './app/services/firebaseConfig';
 import { query, collection, updateDoc, doc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -17,39 +18,42 @@ function UsersList() {
 }
 
 function UsersTable({ data }) {
-  const rows = data.map((row, i) => (
-    <tr key={i}>
-      <td>{row.id}</td>
-      <td>{row.email}</td>
-      <td>{row.accountType}</td>
-      <td>{row.isActivated ? <>Active</> : <>Not Active</>}</td>
-      <td>{
-        row.isActivated ? <></> :
-          <ActivateButton id={row.id} />
-      }</td>
-    </tr>
-  ));
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Email</th>
-          <th>Account Type</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows}
-      </tbody>
-    </table>
-  );
+  return <Table
+    title={() => <Typography.Title level={3}>Users List</Typography.Title>}
+    columns={[
+      {
+        title: 'ID',
+        dataIndex: 'id',
+      },
+      {
+        title: 'E-mail',
+        dataIndex: 'email'
+      },
+      {
+        title: 'Account Type',
+        dataIndex: 'accountType'
+      },
+      {
+        title: 'Status',
+        data: 'isActivated',
+        render: (_, { isActivated }) => (
+          isActivated ? <Tag color='green'>active</Tag> : <Tag color='orange'>not active</Tag>
+        )
+      },
+      {
+        key: 'action',
+        render: (_, { id, isActivated }) => (
+          isActivated ? <></> : <ActivateButton docId={id} />
+        )
+      }
+    ]}
+    dataSource={data}
+  />;
 }
 
 function serializeDocuments(documents) {
   return documents.map(document => ({
+    key: document.id,
     id: document.id,
     email: document.get('email'),
     accountType: document.get('accountType'),
@@ -67,7 +71,7 @@ function ActivateButton({ docId }) {
     }
   }
 
-  return <button onClick={() => activateAccount()}>Activate</button>;
+  return <Button onClick={() => activateAccount()}>Activate</Button>;
 }
 
 export default UsersList;

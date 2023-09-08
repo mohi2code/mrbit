@@ -4,19 +4,15 @@ Proposed Components
 [x] <AuthGuard />
 [x] <HydrateAccount />
 [x] <AdminGuard />
-[ ] <Dashboard />
+[x] <Dashboard />
 [x] <UsersList />
   [x] <UsersTable />
   [x] <ActivateButton />
 [x] <Login />
 [x] <Register />
 
-In progress
-[ ] Dashboard.
-
 Side Quests:
-- UsersList presentation.
-- Dashboard presentation.
+- Add toggle dark theme button in footer.
 
 
 Components Detials

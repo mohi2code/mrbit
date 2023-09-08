@@ -1,4 +1,4 @@
-import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AuthIndex from './app/features/auth/components/AuthIndex';
 import AuthGuard from './app/features/auth/components/AuthGurad';
 import AdminGuard from './app/features/auth/components/AdminGuard';
@@ -6,6 +6,7 @@ import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
 import Register from './app/features/auth/components/Register';
 import Logout from './app/features/auth/components/Logout';
+import Dashboard from './Dashboard';
 import UsersList from './UsersList';
 
 function App() {
@@ -19,7 +20,6 @@ function App() {
           <Route index element={<Login />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
-          <Route path='accountDetails' element={<AccountDetails />} />
         </Route>
 
         <Route path='logout' element={<Logout />} />
@@ -28,7 +28,7 @@ function App() {
         <Route element={<AuthGuard />} >
           <Route element={<HydrateAccount />}>
             <Route path='dashboard/*' element={<Dashboard />} >
-              <Route index element={<h2>Dashboard home</h2>} />
+              <Route index element={<DashboardHome />} />
 
               {/* Admin only routes */}
               <Route element={<AdminGuard />}>
@@ -48,18 +48,8 @@ function App() {
   );
 }
 
-function Dashboard() {
-  return (
-    <>
-      <h1>Dashboard</h1>
-      <Link to='users-list'>Users List</Link>
-      <Outlet />
-    </>
-  );
-}
-
-function AccountDetails() {
-  return <h1>Account Detials...</h1>;
+function DashboardHome() {
+  return <h1>Dashboard Home</h1>;
 }
 
 export default App;
