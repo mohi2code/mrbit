@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import AuthIndex from './app/features/auth/components/AuthIndex';
 import AuthGuard from './app/features/auth/components/AuthGurad';
 import AdminGuard from './app/features/auth/components/AdminGuard';
+import AdminOrClientGuard from './app/features/auth/components/AdminOrClientGurad';
 import HydrateAccount from './app/features/auth/components/HydrateAccount';
 import Login from './app/features/auth/components/Login';
 import Register from './app/features/auth/components/Register';
@@ -46,7 +47,7 @@ function App() {
                 <Route index element={<InvitationsList />} />
               </Route>
 
-              <Route path='proposals'>
+              <Route path='proposals' element={<AdminOrClientGuard />}>
                 <Route index element={<ProposalsList />} />
                 <Route path='proposals-list' element={<ProposalsList />} />
                 <Route path='new'>
