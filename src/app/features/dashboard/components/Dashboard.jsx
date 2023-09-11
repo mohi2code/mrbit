@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useMemo } from 'react';
 import FullPage from '../../auth/components/layout/FullPage';
-import { PoweroffOutlined, HomeOutlined, UserOutlined, SettingOutlined } from '@ant-design/icons';
+import { PoweroffOutlined, HomeOutlined, UserOutlined, SettingOutlined, FileOutlined, FileAddOutlined, MessageOutlined } from '@ant-design/icons';
 import { Layout, Typography, theme, Button, Menu, Switch, Space } from 'antd';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -83,6 +83,25 @@ function DashboardSidebar({ token }) {
             label: <Link to='users-list'>Users list</Link>,
             icon: <UserOutlined />,
             key: 'users-list',
+          },
+          {
+            label: <Link to='invitations'>Invitations</Link>,
+            icon: <MessageOutlined />,
+          },
+          {
+            label: <>Proposals</>,
+            icon: <FileOutlined />,
+            children: [
+              {
+                label: <Link to='proposals'>All Proposals</Link>,
+                key: 'proposals-list',
+              },
+              {
+                label: <Link to='proposals/new/proposal-details'>New Proposal</Link>,
+                key: 'new-proposal',
+                icon: <FileAddOutlined />
+              }
+            ]
           },
           {
             label: <>Settings</>,

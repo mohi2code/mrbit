@@ -12,6 +12,9 @@ import Register from './app/features/auth/components/Register';
 import Logout from './app/features/auth/components/Logout';
 import Dashboard from './app/features/dashboard/components/Dashboard';
 import UsersList from './app/features/dashboard/components/UsersList';
+import NewProposalDetails from './app/features/proposal/components/NewProposalDetails';
+import NewProposalTranslator from './app/features/proposal/components/NewProposalTranslator';
+import InvitationsList from './app/features/proposal/components/InvitationsList';
 
 function App() {
   return (
@@ -37,6 +40,19 @@ function App() {
               {/* Admin only routes */}
               <Route element={<AdminGuard />}>
                 <Route path='users-list' element={<UsersList />} />
+              </Route>
+
+              <Route path='invitations'>
+                <Route index element={<InvitationsList />} />
+              </Route>
+
+              <Route path='proposals'>
+                <Route index element={<ProposalsList />} />
+                <Route path='proposals-list' element={<ProposalsList />} />
+                <Route path='new'>
+                  <Route path='proposal-details' element={<NewProposalDetails />} />
+                  <Route path='proposal-translator/:id' element={<NewProposalTranslator />} />
+                </Route>
               </Route>
 
               {/* Not found dashboard */}
@@ -68,6 +84,10 @@ export function ThemedApp() {
 
 function DashboardHome() {
   return <h1>Dashboard Home</h1>;
+}
+
+function ProposalsList() {
+  return <h1>Proposals list here...</h1>;
 }
 
 export default App;
