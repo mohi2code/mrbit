@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux';
+import { selectCreds } from '../../auth/authSlice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { firestore } from '../../../services/firebaseConfig';
@@ -7,6 +9,7 @@ import { Form, Input, Upload, DatePicker, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 function NewDocumentProposal() {
+  const user = useSelector(selectCreds);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +27,8 @@ function NewDocumentProposal() {
         title,
         language,
         deadline: deadline?.toString(),
-        description: description ? description : null,
+        description,
+        client: user.email,
       });
       navigate(`../proposal-translator/${doc.id}`);
     } catch (error) {
@@ -41,6 +45,7 @@ function NewDocumentProposal() {
       {...formItemLayout}
       onFinish={onFinish}
       disabled={loading}
+      initialValues={{ description: "" }}
     >
       <TitleField />
       <LanguageField />

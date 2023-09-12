@@ -16,6 +16,7 @@ import UsersList from './app/features/dashboard/components/UsersList';
 import NewProposalDetails from './app/features/proposal/components/NewProposalDetails';
 import NewProposalTranslator from './app/features/proposal/components/NewProposalTranslator';
 import InvitationsList from './app/features/proposal/components/InvitationsList';
+import ProposalsList from './app/features/proposal/components/ProposalsList';
 
 function App() {
   return (
@@ -85,10 +86,6 @@ export function ThemedApp() {
 
 function DashboardHome() {
   return <h1>Dashboard Home</h1>;
-}
-
-function ProposalsList() {
-  return <h1>Proposals list here...</h1>;
 }
 
 export default App;

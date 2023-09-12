@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux';
+import { selectCreds } from '../../auth/authSlice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { firestore } from '../../../services/firebaseConfig';
@@ -6,6 +8,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { Form, Input, DatePicker, Button, TimePicker } from 'antd';
 
 function NewSessionProposal() {
+  const user = useSelector(selectCreds);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +28,9 @@ function NewSessionProposal() {
         date: date?.toString(),
         starting_time: starting_time?.toString(),
         finishing_time: finishing_time?.toString(),
-        description: description ? description : null,
+        description: description,
+        client: user.email,
+
       });
       navigate(`../proposal-translator/${doc.id}`);
     } catch (error) {
@@ -40,6 +45,7 @@ function NewSessionProposal() {
       {...formItemLayout}
       disabled={loading}
       onFinish={onFinish}
+      initialValues={{ description: "" }}
     >
       <TitleField />
       <DateField />
