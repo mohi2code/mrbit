@@ -6,7 +6,7 @@ import { query, collection, and, where, doc, updateDoc } from 'firebase/firestor
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useMemo, useState } from 'react';
 import { StyledSpace } from './NewProposalDetails';
-import { Button, Card, Descriptions } from 'antd';
+import { Button, Card, Descriptions, Skeleton, Table } from 'antd';
 
 function InvitationsList() {
   const user = useSelector(selectCreds);
@@ -19,9 +19,14 @@ function InvitationsList() {
   if (error)
     return <h1>Unexpected Error, Check Console</h1>;
 
-  return loading ?
-    <h1>Invitations list, processing...</h1> :
-    <InvitationsCards data={serializeDocuments(snapshot?.docs)} />;
+  if (loading)
+    return <Skeleton active />;
+  else {
+    if (snapshot?.docs.length > 0)
+      return <InvitationsCards data={serializeDocuments(snapshot?.docs)} />;
+    else
+      return <Table />;
+  }
 }
 
 function serializeDocuments(documents) {
