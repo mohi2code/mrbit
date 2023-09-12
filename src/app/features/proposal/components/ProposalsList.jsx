@@ -6,7 +6,7 @@ import { firestore } from '../../../services/firebaseConfig';
 import { query, collection, and, where, doc, deleteDoc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { StyledSpace } from './NewProposalDetails';
-import { Badge, Button, Card, Descriptions, Popconfirm, Skeleton, Table } from 'antd';
+import { Badge, Button, Card, Descriptions, Popconfirm, Skeleton, Empty } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 function ProposalsList() {
@@ -27,7 +27,7 @@ function ProposalsList() {
     if (snapshot?.docs.length > 0)
       return <ProposalsCards data={serializeDocuments(snapshot?.docs)} />;
     else
-      return <Table />;
+      return <Empty />;
   }
 }
 

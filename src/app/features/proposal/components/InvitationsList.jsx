@@ -6,7 +6,7 @@ import { query, collection, and, where, doc, updateDoc } from 'firebase/firestor
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useMemo, useState } from 'react';
 import { StyledSpace } from './NewProposalDetails';
-import { Button, Card, Descriptions, Skeleton, Table } from 'antd';
+import { Button, Card, Descriptions, Empty, Skeleton } from 'antd';
 
 function InvitationsList() {
   const user = useSelector(selectCreds);
@@ -25,7 +25,7 @@ function InvitationsList() {
     if (snapshot?.docs.length > 0)
       return <InvitationsCards data={serializeDocuments(snapshot?.docs)} />;
     else
-      return <Table />;
+      return <Empty image={Empty.PRESENTED_IMAGE_DEFAULT} />;
   }
 }
 
