@@ -4,6 +4,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { Badge, Button, Card, Col, Row, Space, Statistic, Table } from 'antd';
 import { UserOutlined, FolderOpenFilled, PlusOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardHome() {
   return (
@@ -114,6 +115,8 @@ function serializeUsersDocuments(documents) {
 }
 
 function ProposalsStatistics() {
+  const navigate = useNavigate();
+
   const [snapshot, loading,] = useCollection(
     query(collection(firestore, 'proposals'))
   );
@@ -137,7 +140,7 @@ function ProposalsStatistics() {
       <Row gutter={16}>
         <Col span={24}>
           <Card loading={loading} >
-            <Button type='dashed' icon={<PlusOutlined />}>Create a new proposal</Button>
+            <Button onClick={() => navigate('proposals/new/proposal-details')} type='dashed' icon={<PlusOutlined />}>Create a new proposal</Button>
           </Card>
         </Col>
       </Row>
