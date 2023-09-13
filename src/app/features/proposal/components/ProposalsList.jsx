@@ -53,6 +53,7 @@ function ProposalsCards({ data }) {
 function ProposalCard({ data }) {
   return (
     <Card
+      bordered={false}
       actions={[
         <InviteAnotherTranslator isTranslator={data.get('translator')} id={data.id} key='invite-another' />,
         <DeleteProposal key='delete' id={data.id} />,

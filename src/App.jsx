@@ -17,6 +17,7 @@ import NewProposalDetails from './app/features/proposal/components/NewProposalDe
 import NewProposalTranslator from './app/features/proposal/components/NewProposalTranslator';
 import InvitationsList from './app/features/proposal/components/InvitationsList';
 import ProposalsList from './app/features/proposal/components/ProposalsList';
+import DashboardHome from './app/features/dashboard/components/DashboardHome';
 
 function App() {
   return (
@@ -37,10 +38,10 @@ function App() {
         <Route element={<AuthGuard />} >
           <Route element={<HydrateAccount />}>
             <Route path='dashboard/*' element={<Dashboard />} >
-              <Route index element={<DashboardHome />} />
 
               {/* Admin only routes */}
               <Route element={<AdminGuard />}>
+                <Route index element={<DashboardHome />} />
                 <Route path='users-list' element={<UsersList />} />
               </Route>
 
@@ -82,10 +83,6 @@ export function ThemedApp() {
       <App />
     </ConfigProvider>
   );
-}
-
-function DashboardHome() {
-  return <h1>Dashboard Home</h1>;
 }
 
 export default App;

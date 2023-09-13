@@ -2,7 +2,7 @@
 import { firestore } from '../../../services/firebaseConfig';
 import { query, collection, updateDoc, doc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { Button, Drawer, Empty, Skeleton, Table, Tag, Typography, notification } from 'antd';
+import { Button, Drawer, Empty, Popconfirm, Skeleton, Table, Tag, Typography, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import NewUserForm from './NewUserForm';
@@ -81,7 +81,9 @@ function UsersTable({ data, setNewAccDrawer }) {
           {
             key: 'action',
             render: (_, { id, isActivated }) => (
-              isActivated ? <></> : <ActivateButton notificationAPI={api} docId={id} />
+              isActivated ?
+                <DeactivateButton notificationAPI={api} docId={id} /> :
+                <ActivateButton notificationAPI={api} docId={id} />
             )
           }
         ]}
@@ -138,6 +140,32 @@ function ActivateButton({ docId, notificationAPI }) {
   }
 
   return <Button onClick={() => activateAccount()}>Activate</Button>;
+}
+
+function DeactivateButton({ docId, notificationAPI }) {
+  async function deactivateAccount() {
+    try {
+      const accountRef = doc(firestore, 'accounts', docId);
+      await updateDoc(accountRef, { isActivated: false });
+      notificationAPI?.warning({
+        message: 'User was deactivated successfully!',
+        duration: 3,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <Popconfirm
+      onConfirm={() => deactivateAccount()}
+      title='Deactivate this account?'
+      okText='Deactivate'
+      cancelText='Cancel'
+    >
+      <Button type='link'>Deactivate account</Button>
+    </Popconfirm>
+  );
 }
 
 export default UsersList;
