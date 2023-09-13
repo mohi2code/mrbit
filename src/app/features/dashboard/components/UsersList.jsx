@@ -1,29 +1,63 @@
 /* eslint-disable react/prop-types */
-import { Button, Table, Tag, Typography, notification } from 'antd';
 import { firestore } from '../../../services/firebaseConfig';
 import { query, collection, updateDoc, doc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { Button, Drawer, Empty, Skeleton, Table, Tag, Typography, notification } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import NewUserForm from './NewUserForm';
 
 function UsersList() {
   const [snapshot, loading, error] = useCollection(
     query(collection(firestore, 'accounts'))
   );
 
+  const [newAccDrawer, setNewAccDrawer] = useState(false);
+
   if (error)
     return <h1>An Unexpected error occured, check the console</h1>;
 
-  return loading ?
-    <h1>UsersList, processing...</h1> :
-    <UsersTable data={serializeDocuments(snapshot.docs)} />;
+  if (loading)
+    return <Skeleton active />;
+  else {
+    if (snapshot?.docs.length > 0)
+      return (
+        <>
+          <UsersTable
+            data={serializeDocuments(snapshot.docs)}
+            setNewAccDrawer={setNewAccDrawer}
+          />
+          <NewUserDrawer
+            newAccDrawer={newAccDrawer}
+            setNewAccDrawer={setNewAccDrawer}
+          />
+        </>
+      );
+    else
+      return <Empty />;
+  }
 }
 
-function UsersTable({ data }) {
+function NewUserDrawer({ newAccDrawer, setNewAccDrawer }) {
+  return (
+    <Drawer
+      title='New User'
+      placement='right'
+      open={newAccDrawer}
+      onClose={() => setNewAccDrawer(false)}
+    >
+      <NewUserForm setNewAccDrawer={setNewAccDrawer} />
+    </Drawer>
+  );
+}
+
+function UsersTable({ data, setNewAccDrawer }) {
   const [api, contextHolder] = notification.useNotification();
 
   return (
     <>
       <Table
-        title={() => <Typography.Title level={3}>Users List</Typography.Title>}
+        title={() => <TableHeader setNewAccDrawer={setNewAccDrawer} />}
         columns={[
           {
             title: 'ID',
@@ -55,6 +89,27 @@ function UsersTable({ data }) {
       />
       {contextHolder}
     </>
+  );
+}
+
+function TableHeader({ setNewAccDrawer }) {
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between'
+      }}
+    >
+      <Typography.Title level={3}>Users List</Typography.Title>
+      <Button
+        icon={<PlusOutlined />}
+        onClick={() => setNewAccDrawer(true)}
+      >
+        Create a new user
+      </Button>
+    </div>
   );
 }
 

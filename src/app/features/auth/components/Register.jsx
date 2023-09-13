@@ -49,7 +49,7 @@ function Register() {
   );
 }
 
-function EmailField() {
+export function EmailField() {
   return (
     <Form.Item
       name='email'
@@ -69,7 +69,7 @@ function EmailField() {
   );
 }
 
-function PasswordField() {
+export function PasswordField() {
   return (
     <Form.Item
       name="password"
@@ -86,7 +86,7 @@ function PasswordField() {
   );
 }
 
-function PasswordConfirmField() {
+export function PasswordConfirmField() {
   return (
     <Form.Item
       name="confirm"
@@ -113,7 +113,7 @@ function PasswordConfirmField() {
   );
 }
 
-function AccountTypeField() {
+export function AccountTypeField() {
   return (
     <Form.Item
       name="accountType"
@@ -128,7 +128,7 @@ function AccountTypeField() {
   );
 }
 
-function SubmitButton({ loading }) {
+export function SubmitButton({ loading }) {
   return (
     <Form.Item>
       <Button loading={loading} icon={<UserAddOutlined />} type="primary" htmlType="submit" block>
