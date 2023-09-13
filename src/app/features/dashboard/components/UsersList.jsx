@@ -46,7 +46,7 @@ function NewUserDrawer({ newAccDrawer, setNewAccDrawer }) {
       open={newAccDrawer}
       onClose={() => setNewAccDrawer(false)}
     >
-      <NewUserForm setNewAccDrawer={setNewAccDrawer} />
+      <NewUserForm />
     </Drawer>
   );
 }

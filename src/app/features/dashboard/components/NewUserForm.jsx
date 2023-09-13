@@ -5,9 +5,11 @@ import { AccountTypeField, EmailField, PasswordConfirmField, PasswordField } fro
 import { auth, firestore } from '../../../services/firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 
-function NewUserForm({ setNewAccDrawer }) {
+function NewUserForm() {
   const [createUser, , loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
   async function onFinish({
     email,
@@ -15,13 +17,18 @@ function NewUserForm({ setNewAccDrawer }) {
     accountType,
     isActivated = false
   }) {
-    const user = await createUser(email, password);
-    user && await addDoc(collection(firestore, 'accounts'), {
-      email: user.user.email,
-      accountType,
-      isActivated
-    });
-    setNewAccDrawer(false);
+    try {
+      const user = await createUser(email, password);
+      user && await addDoc(collection(firestore, 'accounts'), {
+        email: user.user.email,
+        accountType,
+        isActivated
+      });
+      navigate('/logout');
+    } catch (error) {
+      console.log(error);
+    }
+    // navigate('/logout');
   }
 
   return (
