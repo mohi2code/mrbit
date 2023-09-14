@@ -17,7 +17,8 @@ function NewDocumentProposal() {
     title,
     language,
     deadline,
-    description
+    description,
+    upload,
   }) {
     setLoading(true);
     try {
@@ -38,8 +39,6 @@ function NewDocumentProposal() {
     }
   }
 
-  function uploadFile() { }
-
   return (
     <Form
       {...formItemLayout}
@@ -49,7 +48,7 @@ function NewDocumentProposal() {
     >
       <TitleField />
       <LanguageField />
-      <DocumentUploadField uploadFile={uploadFile} />
+      <DocumentUploadField />
       <DeadlineField />
       <DescriptionField />
       <SubmissionButton loading={loading} />
@@ -82,13 +81,17 @@ function LanguageField() {
   );
 }
 
-function DocumentUploadField({ uploadFile }) {
+function DocumentUploadField() {
   return (
     <Form.Item
+      name='upload'
       label='Document PDF'
-      valuePropName='fileList'
+      valuePropName='file'
     >
-      <Upload action={uploadFile} listType="picture-card">
+      <Upload
+        beforeUpload={() => { return false; }}
+        listType="picture-card"
+      >
         <div>
           <PlusOutlined />
           <div style={{ marginTop: 8 }}>Upload</div>

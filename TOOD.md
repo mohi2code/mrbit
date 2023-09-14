@@ -1,7 +1,10 @@
 [ ] Refactor <ProposalsList /> & <InvitationsList /> components since they share similar ui logic ?
 
-[ ] Crud users.
-[ ] Crud proposals.
+[x] Crud users.
+[x] Crud proposals.
+[x] Dashboard homepage.
+
+[ ] Upload file feature.
 
 
 New flow:
