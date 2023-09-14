@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import { selectCreds } from '../../auth/authSlice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { firestore } from '../../../services/firebaseConfig';
+import { firestore, storage } from '../../../services/firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
+import { ref as storageRef } from 'firebase/storage';
+import { useUploadFile } from 'react-firebase-hooks/storage';
 import { Form, Input, Upload, DatePicker, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -12,6 +14,7 @@ function NewDocumentProposal() {
   const user = useSelector(selectCreds);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [uploadFile] = useUploadFile();
 
   async function onFinish({
     title,
@@ -22,6 +25,12 @@ function NewDocumentProposal() {
   }) {
     setLoading(true);
     try {
+      /** File Upload logic  */
+      const file = upload?.fileList[0];
+      const fileRef = storageRef(storage, `${file.name}-${Date.now()}`);
+      const result = await uploadFile(fileRef, file.originFileObj);
+      const documentFullPath = result.metadata.fullPath;
+
       const ref = collection(firestore, 'proposals');
       const doc = await addDoc(ref, {
         type: 'document',
@@ -30,6 +39,7 @@ function NewDocumentProposal() {
         deadline: deadline?.toString(),
         description,
         client: user.email,
+        documentFullPath,
       });
       navigate(`../proposal-translator/${doc.id}`);
     } catch (error) {

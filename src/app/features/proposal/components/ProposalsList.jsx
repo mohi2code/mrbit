@@ -85,7 +85,7 @@ function cardItems(data) {
     {
       key: 101,
       label: 'Assigned Translator',
-      children: data.get('translator') ? <Badge status='warning' text={data.get('translator')} />
+      children: data.get('translator') ? <Badge status='processing' text={data.get('translator')} />
         : <Badge status='default' text='Not assigned yet' />
     },
     {

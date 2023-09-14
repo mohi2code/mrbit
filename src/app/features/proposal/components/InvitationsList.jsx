@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCreds } from '../../auth/authSlice';
-import { firestore } from '../../../services/firebaseConfig';
+import { firestore, storage } from '../../../services/firebaseConfig';
 import { query, collection, and, where, doc, updateDoc } from 'firebase/firestore';
+import { ref as storageRef } from 'firebase/storage';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useDownloadURL } from 'react-firebase-hooks/storage';
 import { useMemo, useState } from 'react';
 import { StyledSpace } from './NewProposalDetails';
 import { Button, Card, Descriptions, Empty, Skeleton } from 'antd';
@@ -81,7 +84,7 @@ function cardItems(data) {
     },
   );
 
-  if (data.get('type') === 'document')
+  if (data.get('type') === 'document') {
     items.push(
       {
         key: 3,
@@ -94,7 +97,18 @@ function cardItems(data) {
         children: data.get('language'),
       },
     );
-  else
+
+    if (data.get('documentFullPath') != null)
+      items.push(
+        {
+          key: 102,
+          label: 'Document',
+          children: <DocumentDownloadURL
+            fullPath={`/${data.get('documentFullPath')}`}
+          />
+        }
+      );
+  } else {
     items.push(
       {
         key: 5,
@@ -112,8 +126,15 @@ function cardItems(data) {
         children: data.get('finishing_time'),
       },
     );
+  }
 
   return items;
+}
+
+function DocumentDownloadURL({ fullPath }) {
+  const [value] = useDownloadURL(storageRef(storage, fullPath));
+
+  return <Link to={value} target="_blank" rel="noopener noreferrer">View document</Link>;
 }
 
 function AcceptInvitation({ id }) {
