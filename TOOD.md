@@ -4,7 +4,7 @@
 [x] Crud proposals.
 [x] Dashboard homepage.
 
-[ ] Upload file feature.
+[x] Upload file feature.
 
 
 New flow:
