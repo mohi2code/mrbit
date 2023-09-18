@@ -1,55 +1,54 @@
+# How to run locally
+Clone the repo then: 
+```
+cd mrbit
+npm install
+npm run dev
+```
+
 # App Components
 
 **Folder Structure** 
 
 ```
-.
-├── README.md
-├── TOOD.md
-├── index.html
-├── package-lock.json
-├── package.json
-├── public
-│   └── vite.svg
-├── src
-│   ├── App.jsx
-│   ├── HomePage.jsx
-│   ├── app
-│   │   ├── features
-│   │   │   ├── auth
-│   │   │   │   ├── authSlice.js
-│   │   │   │   └── components
-│   │   │   │       ├── AdminGuard.jsx
-│   │   │   │       ├── AdminOrClientGurad.jsx
-│   │   │   │       ├── AuthGurad.jsx
-│   │   │   │       ├── AuthIndex.jsx
-│   │   │   │       ├── HydrateAccount.jsx
-│   │   │   │       ├── Login.jsx
-│   │   │   │       ├── Logout.jsx
-│   │   │   │       ├── Register.jsx
-│   │   │   │       └── layout
-│   │   │   │           └── FullPage.jsx
-│   │   │   ├── dashboard
-│   │   │   │   ├── components
-│   │   │   │   │   ├── Dashboard.jsx
-│   │   │   │   │   ├── DashboardHome.jsx
-│   │   │   │   │   ├── NewUserForm.jsx
-│   │   │   │   │   └── UsersList.jsx
-│   │   │   │   └── dashboardSlice.js
-│   │   │   └── proposal
-│   │   │       └── components
-│   │   │           ├── InvitationsList.jsx
-│   │   │           ├── NewDocumentProposal.jsx
-│   │   │           ├── NewProposalDetails.jsx
-│   │   │           ├── NewProposalTranslator.jsx
-│   │   │           ├── NewSessionProposal.jsx
-│   │   │           └── ProposalsList.jsx
-│   │   ├── services
-│   │   │   └── firebaseConfig.js
-│   │   └── store.js
-│   ├── index.css
-│   └── main.jsx
-└── vite.config.js
+src
+├── App.jsx
+├── HomePage.jsx
+├── app
+│   ├── features
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── components
+│   │   │       ├── AdminGuard.jsx
+│   │   │       ├── AdminOrClientGurad.jsx
+│   │   │       ├── AuthGurad.jsx
+│   │   │       ├── AuthIndex.jsx
+│   │   │       ├── HydrateAccount.jsx
+│   │   │       ├── Login.jsx
+│   │   │       ├── Logout.jsx
+│   │   │       ├── Register.jsx
+│   │   │       └── layout
+│   │   │           └── FullPage.jsx
+│   │   ├── dashboard
+│   │   │   ├── components
+│   │   │   │   ├── Dashboard.jsx
+│   │   │   │   ├── DashboardHome.jsx
+│   │   │   │   ├── NewUserForm.jsx
+│   │   │   │   └── UsersList.jsx
+│   │   │   └── dashboardSlice.js
+│   │   └── proposal
+│   │       └── components
+│   │           ├── InvitationsList.jsx
+│   │           ├── NewDocumentProposal.jsx
+│   │           ├── NewProposalDetails.jsx
+│   │           ├── NewProposalTranslator.jsx
+│   │           ├── NewSessionProposal.jsx
+│   │           └── ProposalsList.jsx
+│   ├── services
+│   │   └── firebaseConfig.js
+│   └── store.js
+├── index.css
+└── main.jsx
 ```
 
 Below is an overview of the components used to implement the UI and functionality requirements for the application. Basically the application has two features now; Authentication feature & Proposals feature. Below is an overview of the components of each feature.
